@@ -40,6 +40,7 @@ git clone <your-repo-url>
 cd historydao
 cd frontend && npm install
 cd ../contract && npm install  # Optional, for testing
+cd ..
 
 # 3. Start blockchain (Terminal 1)
 substrate-contracts-node --dev --tmp
@@ -59,7 +60,7 @@ npm run dev
 # Visit http://localhost:5173
 ```
 
-## � Deetailed Setup Guide
+## � Detailed Setup Guide
 
 First time with blockchain or Polkadot? Follow these step-by-step instructions.
 
