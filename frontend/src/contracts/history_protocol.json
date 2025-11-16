@@ -1,0 +1,1308 @@
+{
+  "source": {
+    "hash": "0xe83fa716f5dccb4075852eb16edf9a5d9f1855c67a518a4b4e94a23efd0a7b49",
+    "language": "ink! 4.3.0",
+    "compiler": "rustc 1.91.1",
+    "build_info": {
+      "build_mode": "Release",
+      "cargo_contract_version": "5.0.3",
+      "rust_toolchain": "stable-x86_64-apple-darwin",
+      "wasm_opt_settings": {
+        "keep_debug_symbols": false,
+        "optimization_passes": "Z"
+      }
+    }
+  },
+  "contract": {
+    "name": "history_protocol",
+    "version": "0.1.0",
+    "authors": [
+      "Contested History Protocol Team"
+    ]
+  },
+  "image": null,
+  "spec": {
+    "constructors": [
+      {
+        "args": [],
+        "default": false,
+        "docs": [
+          "Constructor that initializes the contract"
+        ],
+        "label": "new",
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink_primitives",
+            "ConstructorResult"
+          ],
+          "type": 9
+        },
+        "selector": "0x9bae9d5e"
+      }
+    ],
+    "docs": [],
+    "environment": {
+      "accountId": {
+        "displayName": [
+          "AccountId"
+        ],
+        "type": 3
+      },
+      "balance": {
+        "displayName": [
+          "Balance"
+        ],
+        "type": 24
+      },
+      "blockNumber": {
+        "displayName": [
+          "BlockNumber"
+        ],
+        "type": 6
+      },
+      "chainExtension": {
+        "displayName": [
+          "ChainExtension"
+        ],
+        "type": 26
+      },
+      "hash": {
+        "displayName": [
+          "Hash"
+        ],
+        "type": 25
+      },
+      "maxEventTopics": 4,
+      "timestamp": {
+        "displayName": [
+          "Timestamp"
+        ],
+        "type": 0
+      }
+    },
+    "events": [],
+    "lang_error": {
+      "displayName": [
+        "ink",
+        "LangError"
+      ],
+      "type": 11
+    },
+    "messages": [
+      {
+        "args": [
+          {
+            "label": "title",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "date",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "description",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "evidence_sources",
+            "type": {
+              "displayName": [
+                "Vec"
+              ],
+              "type": 2
+            }
+          },
+          {
+            "label": "tags",
+            "type": {
+              "displayName": [
+                "Vec"
+              ],
+              "type": 2
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Submits a new historical event to the protocol",
+          " ",
+          " # Arguments",
+          " * `title` - The title of the historical event",
+          " * `date` - Unix timestamp of when the event occurred",
+          " * `description` - Detailed description of the event",
+          " * `evidence_sources` - Vector of evidence URLs or references",
+          " * `tags` - Vector of category tags (minimum 1, maximum 5)",
+          " ",
+          " # Returns",
+          " * `Ok(u64)` - The unique event ID if successful",
+          " * `Err(Error::InvalidEventData)` - If validation fails"
+        ],
+        "label": "submit_event",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 12
+        },
+        "selector": "0x1a686cd0"
+      },
+      {
+        "args": [
+          {
+            "label": "event_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "voter",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 3
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Checks if a voter has already voted on a specific event",
+          " ",
+          " # Arguments",
+          " * `event_id` - The ID of the event to check",
+          " * `voter` - The account address of the voter",
+          " ",
+          " # Returns",
+          " * `true` if the voter has already voted on this event",
+          " * `false` if the voter has not voted on this event"
+        ],
+        "label": "has_voted",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 15
+        },
+        "selector": "0xb03e31b0"
+      },
+      {
+        "args": [
+          {
+            "label": "event_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "support",
+            "type": {
+              "displayName": [
+                "bool"
+              ],
+              "type": 7
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Records a vote on a historical event",
+          " ",
+          " # Arguments",
+          " * `event_id` - The ID of the event to vote on",
+          " * `support` - true for support vote, false for challenge vote",
+          " ",
+          " # Returns",
+          " * `Ok(())` if the vote was recorded successfully",
+          " * `Err(Error::EventNotFound)` if the event doesn't exist",
+          " * `Err(Error::AlreadyVoted)` if the user has already voted on this event"
+        ],
+        "label": "vote",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 16
+        },
+        "selector": "0x083be260"
+      },
+      {
+        "args": [
+          {
+            "label": "event_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retrieves a historical event by its ID",
+          " ",
+          " # Arguments",
+          " * `event_id` - The unique ID of the event to retrieve",
+          " ",
+          " # Returns",
+          " * `Some(HistoricalEvent)` if the event exists",
+          " * `None` if the event doesn't exist"
+        ],
+        "label": "get_event",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 18
+        },
+        "selector": "0x1c7f7fa8"
+      },
+      {
+        "args": [
+          {
+            "label": "timeline",
+            "type": {
+              "displayName": [
+                "Timeline"
+              ],
+              "type": 21
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retrieves all events in a specific timeline",
+          " ",
+          " # Arguments",
+          " * `timeline` - The timeline to retrieve events from (Canonical, Disputed, or Alternative)",
+          " ",
+          " # Returns",
+          " * `Vec<HistoricalEvent>` - Vector of all events in the specified timeline"
+        ],
+        "label": "get_events_by_timeline",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x089fcbcb"
+      },
+      {
+        "args": [
+          {
+            "label": "user",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 3
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retrieves all events submitted by a specific user",
+          " ",
+          " # Arguments",
+          " * `user` - The account address of the user",
+          " ",
+          " # Returns",
+          " * `Vec<HistoricalEvent>` - Vector of all events submitted by the user"
+        ],
+        "label": "get_user_events",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x91417b5b"
+      },
+      {
+        "args": [
+          {
+            "label": "tag",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retrieves all events that contain a specific tag",
+          " ",
+          " # Arguments",
+          " * `tag` - The tag to filter events by",
+          " ",
+          " # Returns",
+          " * `Vec<HistoricalEvent>` - Vector of all events containing the specified tag"
+        ],
+        "label": "get_events_by_tag",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x8aa38ad4"
+      }
+    ]
+  },
+  "storage": {
+    "root": {
+      "layout": {
+        "struct": {
+          "fields": [
+            {
+              "layout": {
+                "root": {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 0
+                            }
+                          },
+                          "name": "id"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 1
+                            }
+                          },
+                          "name": "title"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 0
+                            }
+                          },
+                          "name": "date"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 1
+                            }
+                          },
+                          "name": "description"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 2
+                            }
+                          },
+                          "name": "evidence_sources"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 2
+                            }
+                          },
+                          "name": "tags"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 3
+                            }
+                          },
+                          "name": "submitter"
+                        },
+                        {
+                          "layout": {
+                            "enum": {
+                              "dispatchKey": "0x9beae779",
+                              "name": "Timeline",
+                              "variants": {
+                                "0": {
+                                  "fields": [],
+                                  "name": "Canonical"
+                                },
+                                "1": {
+                                  "fields": [],
+                                  "name": "Disputed"
+                                },
+                                "2": {
+                                  "fields": [],
+                                  "name": "Alternative"
+                                }
+                              }
+                            }
+                          },
+                          "name": "timeline"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 5
+                            }
+                          },
+                          "name": "consensus_score"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 6
+                            }
+                          },
+                          "name": "support_votes"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 6
+                            }
+                          },
+                          "name": "challenge_votes"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x9beae779",
+                              "ty": 0
+                            }
+                          },
+                          "name": "created_at"
+                        }
+                      ],
+                      "name": "HistoricalEvent"
+                    }
+                  },
+                  "root_key": "0x9beae779"
+                }
+              },
+              "name": "events"
+            },
+            {
+              "layout": {
+                "leaf": {
+                  "key": "0x00000000",
+                  "ty": 0
+                }
+              },
+              "name": "event_count"
+            },
+            {
+              "layout": {
+                "root": {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0xa795546a",
+                              "ty": 3
+                            }
+                          },
+                          "name": "voter"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0xa795546a",
+                              "ty": 0
+                            }
+                          },
+                          "name": "event_id"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0xa795546a",
+                              "ty": 7
+                            }
+                          },
+                          "name": "support"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0xa795546a",
+                              "ty": 0
+                            }
+                          },
+                          "name": "timestamp"
+                        }
+                      ],
+                      "name": "Vote"
+                    }
+                  },
+                  "root_key": "0xa795546a"
+                }
+              },
+              "name": "votes"
+            },
+            {
+              "layout": {
+                "root": {
+                  "layout": {
+                    "leaf": {
+                      "key": "0x47c20fac",
+                      "ty": 8
+                    }
+                  },
+                  "root_key": "0x47c20fac"
+                }
+              },
+              "name": "timeline_events"
+            },
+            {
+              "layout": {
+                "root": {
+                  "layout": {
+                    "leaf": {
+                      "key": "0x97448255",
+                      "ty": 8
+                    }
+                  },
+                  "root_key": "0x97448255"
+                }
+              },
+              "name": "user_events"
+            }
+          ],
+          "name": "HistoryProtocol"
+        }
+      },
+      "root_key": "0x00000000"
+    }
+  },
+  "types": [
+    {
+      "id": 0,
+      "type": {
+        "def": {
+          "primitive": "u64"
+        }
+      }
+    },
+    {
+      "id": 1,
+      "type": {
+        "def": {
+          "primitive": "str"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": {
+        "def": {
+          "sequence": {
+            "type": 1
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "type": 4,
+                "typeName": "[u8; 32]"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_primitives",
+          "types",
+          "AccountId"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "type": {
+        "def": {
+          "array": {
+            "len": 32,
+            "type": 5
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": {
+        "def": {
+          "primitive": "u8"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "type": {
+        "def": {
+          "primitive": "u32"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": {
+        "def": {
+          "primitive": "bool"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": {
+        "def": {
+          "sequence": {
+            "type": 0
+          }
+        }
+      }
+    },
+    {
+      "id": 9,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 10
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 10
+          },
+          {
+            "name": "E",
+            "type": 11
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "type": {
+        "def": {
+          "tuple": []
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 1,
+                "name": "CouldNotReadInput"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_primitives",
+          "LangError"
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 13
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 13
+          },
+          {
+            "name": "E",
+            "type": 11
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 0
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 14
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 0
+          },
+          {
+            "name": "E",
+            "type": 14
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 0,
+                "name": "EventNotFound"
+              },
+              {
+                "index": 1,
+                "name": "AlreadyVoted"
+              },
+              {
+                "index": 2,
+                "name": "InvalidEventData"
+              }
+            ]
+          }
+        },
+        "path": [
+          "history_protocol",
+          "history_protocol",
+          "Error"
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 7
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 7
+          },
+          {
+            "name": "E",
+            "type": 11
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 17
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 17
+          },
+          {
+            "name": "E",
+            "type": 11
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 10
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 14
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 10
+          },
+          {
+            "name": "E",
+            "type": 14
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 19
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 19
+          },
+          {
+            "name": "E",
+            "type": 11
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 0,
+                "name": "None"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 20
+                  }
+                ],
+                "index": 1,
+                "name": "Some"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 20
+          }
+        ],
+        "path": [
+          "Option"
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "name": "id",
+                "type": 0,
+                "typeName": "u64"
+              },
+              {
+                "name": "title",
+                "type": 1,
+                "typeName": "String"
+              },
+              {
+                "name": "date",
+                "type": 0,
+                "typeName": "u64"
+              },
+              {
+                "name": "description",
+                "type": 1,
+                "typeName": "String"
+              },
+              {
+                "name": "evidence_sources",
+                "type": 2,
+                "typeName": "Vec<String>"
+              },
+              {
+                "name": "tags",
+                "type": 2,
+                "typeName": "Vec<String>"
+              },
+              {
+                "name": "submitter",
+                "type": 3,
+                "typeName": "AccountId"
+              },
+              {
+                "name": "timeline",
+                "type": 21,
+                "typeName": "Timeline"
+              },
+              {
+                "name": "consensus_score",
+                "type": 5,
+                "typeName": "u8"
+              },
+              {
+                "name": "support_votes",
+                "type": 6,
+                "typeName": "u32"
+              },
+              {
+                "name": "challenge_votes",
+                "type": 6,
+                "typeName": "u32"
+              },
+              {
+                "name": "created_at",
+                "type": 0,
+                "typeName": "u64"
+              }
+            ]
+          }
+        },
+        "path": [
+          "history_protocol",
+          "history_protocol",
+          "HistoricalEvent"
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 0,
+                "name": "Canonical"
+              },
+              {
+                "index": 1,
+                "name": "Disputed"
+              },
+              {
+                "index": 2,
+                "name": "Alternative"
+              }
+            ]
+          }
+        },
+        "path": [
+          "history_protocol",
+          "history_protocol",
+          "Timeline"
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 23
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 23
+          },
+          {
+            "name": "E",
+            "type": 11
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "type": {
+        "def": {
+          "sequence": {
+            "type": 20
+          }
+        }
+      }
+    },
+    {
+      "id": 24,
+      "type": {
+        "def": {
+          "primitive": "u128"
+        }
+      }
+    },
+    {
+      "id": 25,
+      "type": {
+        "def": {
+          "composite": {
+            "fields": [
+              {
+                "type": 4,
+                "typeName": "[u8; 32]"
+              }
+            ]
+          }
+        },
+        "path": [
+          "ink_primitives",
+          "types",
+          "Hash"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "type": {
+        "def": {
+          "variant": {}
+        },
+        "path": [
+          "ink_env",
+          "types",
+          "NoChainExtension"
+        ]
+      }
+    }
+  ],
+  "version": "4"
+}

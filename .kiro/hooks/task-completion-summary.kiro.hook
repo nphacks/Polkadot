@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Task Completion Summary Generator",
+  "description": "When tasks.md is saved and a task has been marked as completed, automatically generate a focused summary document in the docs/tasks folder named TaskN.md (where N is the task number).",
+  "version": "2",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/tasks.md"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Analyze the tasks.md file that was just edited to identify any tasks that have been newly marked as completed (e.g., with [x] or similar completion markers). Determine which spec this tasks.md belongs to by checking its path (e.g., .kiro/specs/contested-history-protocol/tasks.md or .kiro/specs/historydao-enhancements/tasks.md). For each newly completed task, generate a summary document in the corresponding docs/tasks/{spec-name}/ folder named TaskN.md (where N is the task number and {spec-name} matches the spec folder name). For example: if editing .kiro/specs/historydao-enhancements/tasks.md, save to docs/tasks/historydao-enhancements/TaskN.md. Include ONLY these sections: 1) Overview (what was built and why it matters), 2) What Was Implemented (list subtasks or main components), 3) Key Technical Decisions (architectural choices, patterns used, integration approach), 4) Requirements Fulfilled (list requirement IDs from the corresponding requirements.md in the same spec folder), 5) Files Created/Modified (list paths only). DO NOT include: code snippets, UI component descriptions, styling details, button layouts, form field descriptions, visual design elements, usage examples, troubleshooting steps, or future enhancements. Focus on architecture, data flow, and technical implementation decisions."
+  }
+}

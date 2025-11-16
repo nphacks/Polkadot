@@ -1,0 +1,7 @@
+{
+  "contractAddress": "5EZa9KehyyydtEdTWM1szorJQbYV25eLDgivQyA1fDVTjwgt",
+  "deployer": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+  "deployedAt": "2025-11-16T19:41:29.093Z",
+  "network": "local-dev",
+  "rpcEndpoint": "ws://127.0.0.1:9944"
+}
