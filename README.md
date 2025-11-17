@@ -32,7 +32,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 rustup target add wasm32-unknown-unknown
 rustup component add rust-src
-cargo install cargo-contract --force
+cargo install cargo-contract --version 3.2.0 --force
 cargo install contracts-node --git https://github.com/paritytech/substrate-contracts-node.git --force
 
 # 2. Clone and install dependencies
@@ -48,13 +48,17 @@ substrate-contracts-node --dev --tmp
 # 4. Build and deploy contract (Terminal 2)
 cd contract
 cargo contract build
-cargo contract instantiate --constructor new --suri //Alice --skip-confirm
+cargo contract instantiate --constructor new --suri //Alice --skip-confirm -x
 # Copy the contract address from output
 
-# 5. Configure frontend
+# 5. (Optional) Seed test events
+node seed-events.js
+# Adds 17 Space Race events for immediate testing
+
+# 6. Configure frontend
 # Update frontend/src/config/contract.ts with your contract address
 
-# 6. Start frontend (Terminal 3)
+# 7. Start frontend (Terminal 3)
 cd frontend
 npm run dev
 # Visit http://localhost:5173
@@ -94,9 +98,9 @@ cargo --version
 This tool compiles and deploys ink! smart contracts.
 
 ```bash
-cargo install cargo-contract --force
+cargo install cargo-contract --version 3.2.0 --force
 
-# Verify installation
+# Verify installation (should show 3.2.0)
 cargo contract --version
 ```
 
@@ -178,13 +182,21 @@ Keep this running. You should see blocks being produced. The node runs on `ws://
 
 ```bash
 cd contract
-cargo contract instantiate --constructor new --suri //Alice --skip-confirm
+cargo contract instantiate --constructor new --suri //Alice --skip-confirm -x
 ```
 
 **Important:** Copy the contract address from the output. It looks like:
 ```
 Contract 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 ```
+
+**Optional but Recommended:** Seed the blockchain with 17 test events from the Space Race era:
+
+```bash
+node seed-events.js
+```
+
+This automatically adds historical events (Sputnik, Gagarin, Apollo 11, etc.) so you can immediately test voting and timeline features without manually creating events.
 
 #### Terminal 3: Configure and Start Frontend
 

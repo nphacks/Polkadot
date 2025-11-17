@@ -7,7 +7,7 @@
 
 export const CONTRACT_CONFIG = {
   // Contract address on local development node
-  address: '5EZa9KehyyydtEdTWM1szorJQbYV25eLDgivQyA1fDVTjwgt',
+  address: '5E1FvPudm4Lhb54HBE4Hhei6JpfH5b6bEoBVPhcTHzeLfG2q',
   
   // RPC endpoint for local Substrate Contracts Node
   rpcEndpoint: 'ws://127.0.0.1:9944',
